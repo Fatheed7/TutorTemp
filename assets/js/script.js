@@ -17,8 +17,6 @@ const users = {
   
         users[user].Temperature = temperature;
         const celcius = ((temperature - 32) * 5/9).toFixed(1);
-        console.log(temperature)
-        console.log(celcius)
 
   
         document.getElementById(`${user}`).textContent = `${user} - ${temperature}°F / ${celcius}°C`;

@@ -1,3 +1,13 @@
 .center {
     text-align: center;
 }
+
+.name {
+    display: flex;
+    justify-content: center;
+}
+
+article {
+    margin-top: 35px;
+    margin-bottom: 35px;
+}

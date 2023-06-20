@@ -17,12 +17,14 @@ const users = {
         );
         const data = await response.json();
         const temperature = data.main.temp.toFixed(1);
+        const weather = data.weather[0].icon;
   
         users[user].Temperature = temperature;
         const celcius = ((temperature - 32) * 5/9).toFixed(1);
 
   
-        document.getElementById(`${user}`).textContent = `${user} - ${temperature}°F / ${celcius}°C`;
+        document.getElementById(`${user}`).textContent = `${user}`;
+        document.getElementById(`${user}`).nextElementSibling.innerHTML = `<img src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
       } catch (error) {
         console.error(`Failed to update temperature for ${user}. Error: ${error}`);
       }

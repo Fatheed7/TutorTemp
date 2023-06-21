@@ -11,3 +11,8 @@ article {
     margin-top: 35px;
     margin-bottom: 35px;
 }
+
+img {
+    background-color: lightskyblue;
+    border-radius: 50%;
+}

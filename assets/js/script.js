@@ -18,13 +18,14 @@ const users = {
         const data = await response.json();
         const temperature = data.main.temp.toFixed(1);
         const weather = data.weather[0].icon;
+        const country = users[user].Location.split(", ")[1];
   
         users[user].Temperature = temperature;
         const celcius = ((temperature - 32) * 5/9).toFixed(1);
 
   
-        document.getElementById(`${user}`).textContent = `${user}`;
-        document.getElementById(`${user}`).nextElementSibling.innerHTML = `<img src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
+        document.getElementById(`${user}`).innerHTML = `${user}  <img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
+        document.getElementById(`${user}`).nextElementSibling.innerHTML = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
       } catch (error) {
         console.error(`Failed to update temperature for ${user}. Error: ${error}`);
       }

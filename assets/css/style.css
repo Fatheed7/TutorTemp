@@ -12,7 +12,11 @@ article {
     margin-bottom: 35px;
 }
 
-img {
+.weather-icon {
     background-color: lightskyblue;
     border-radius: 50%;
+}
+
+.country-icon {
+    padding: 0 10px
 }

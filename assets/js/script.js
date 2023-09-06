@@ -3,8 +3,8 @@ const users = {
     "Jason": {"Location": "Washington, GB", "Temperature": "0"},
     "Joanne": {"Location": "Vancouver, CA", "Temperature": "0"},
     "Ed": {"Location": "Highbury, GB", "Temperature": "0"},
-    "Josh": {"Location": "Rochester, GB", "Temperature": "0"},
-    "Gemma": {"Location": "Dongo, IT", "Temperature": "0"},
+    "Rebecca": {"Location": "Swords, IE", "Temperature": "0"},
+    "Gemma": {"Location": "Hilversum, NL", "Temperature": "0"},
   };
   
   async function updateTemperatures() {

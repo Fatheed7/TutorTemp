@@ -16,7 +16,6 @@ const users = {
           `https://api.openweathermap.org/data/2.5/weather?q=${userObj.Location}&units=imperial&appid=${apiKey}`
         );
         const data = await response.json();
-        console.log(data);
         const temperature = data.main.temp.toFixed(1);
         const weather = data.weather[0].icon;
   

@@ -10,6 +10,11 @@ const users = {
 async function updateTemperatures() {
   const apiKey = "4c99dcce7d87a6c7ec0ae4d4d923573f";
   const temperatureData = [];
+  const medals = {
+    0: '<img class="medal" src="assets/img/1st.png" alt="1st Place Medal">',
+    1: '<img class="medal" src="assets/img/2nd.png" alt="2nd Place Medal">',
+    2: '<img class="medal" src="assets/img/3rd.png" alt="3rd Place Medal">'
+  }
 
   for (const [user, userObj] of Object.entries(users)) {
     try {
@@ -33,8 +38,13 @@ async function updateTemperatures() {
   temperatureData.sort((a, b) => parseFloat(b.temperature) - parseFloat(a.temperature));
 
   temperatureData.forEach(({ user, temperature, country, weather, celcius }, index) => {
-    document.getElementsByClassName('name')[index].innerHTML = `${user} <img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
+    document.getElementsByClassName('name')[index].innerHTML = `
+      ${index < 3 ? medals[index] : ''}
+      ${user} <img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">
+    `;
+
     document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
+
   });
 
   console.log(temperatureData)

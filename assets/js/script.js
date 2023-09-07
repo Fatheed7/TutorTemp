@@ -21,15 +21,14 @@ async function updateTemperatures() {
       const response = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${userObj.Location}&units=imperial&appid=${apiKey}`
       );
-      const data = await response.json();
-      const temperature = data.main.temp.toFixed(1);
-      const weather = data.weather[0].icon;
-      const country = users[user].Location.split(", ")[1];
-
-      users[user].Temperature = temperature;
+      const { main, weather, id } = await response.json();
+      const temperature = main.temp.toFixed(1);
+      const country = userObj.Location.split(", ")[1];
       const celcius = ((temperature - 32) * 5 / 9).toFixed(1);
 
-      temperatureData.push({ user, temperature, country, weather, celcius });
+      users[user].Temperature = temperature;
+
+      temperatureData.push({ user, temperature, country, weather: weather[0].icon, celcius, location_id: id });
     } catch (error) {
       console.error(`Failed to update temperature for ${user}. Error: ${error}`);
     }
@@ -37,14 +36,14 @@ async function updateTemperatures() {
 
   temperatureData.sort((a, b) => parseFloat(b.temperature) - parseFloat(a.temperature));
 
-  temperatureData.forEach(({ user, temperature, country, weather, celcius }, index) => {
-    document.getElementsByClassName('name')[index].innerHTML = `
-      ${index < 3 ? medals[index] : ''}
-      ${user} <img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">
-    `;
-
-    document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
-
+  temperatureData.forEach(({ user, temperature, country, weather, celcius, location_id }, index) => {
+    const medal = index < 3 ? medals[index] : '';
+    const countryIcon = `<img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
+    const weatherIcon = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png">`;
+    
+    document.getElementsByClassName('name')[index].innerHTML = `${medal} ${user} ${countryIcon}`;
+    document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `${weatherIcon} ${temperature}°F / ${celcius}°C`;
+    document.getElementsByClassName('forecast')[index].innerHTML = `<small><a href="https://openweathermap.org/city/${location_id}" target="_blank">View Forecast</a></small>`;
   });
 }
 

@@ -33,3 +33,10 @@ article {
 .container {
     padding-top: 10px;
 }
+
+.forecast {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, -50%);
+}

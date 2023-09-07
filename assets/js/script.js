@@ -59,4 +59,3 @@ console.log(`
    (__) (____)\\_)(_/(__)    `)
 
 updateTemperatures();
-``

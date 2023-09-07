@@ -46,9 +46,17 @@ async function updateTemperatures() {
     document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png"> ${temperature}°F / ${celcius}°C`;
 
   });
-
-  console.log(temperatureData)
 }
+
+console.log(`
+ ____  _  _  ____  __  ____ 
+(_  _)/ )( \\(_  _)/  \\(  _ \\
+  )(  ) \\/ (  )( (  O ))   /
+ (__) \\____/ (__) \\__/(__\\_)
+   ____  ____  _  _  ____   
+  (_  _)(  __)( \\/ )(  _ \\  
+    )(   ) _) / \\/ \\ ) __/  
+   (__) (____)\\_)(_/(__)    `)
 
 updateTemperatures();
 ``

@@ -31,7 +31,7 @@ async function updateTemperatures() {
 
       users[user].Temperature = temperature;
 
-      temperatureData.push({ user, temperature, country, weather: weather[0].icon, location_id: id, hours, minutes });
+      temperatureData.push({ user, temperature, country, weather: weather[0].icon, description: weather[0].description, location_id: id, hours, minutes });
     } catch (error) {
       console.error(`Failed to update temperature for ${user}. Error: ${error}`);
     }
@@ -39,10 +39,10 @@ async function updateTemperatures() {
 
   temperatureData.sort((a, b) => parseFloat(b.temperature) - parseFloat(a.temperature));
 
-  temperatureData.forEach(({ user, temperature, country, weather, location_id, hours, minutes }, index) => {
+  temperatureData.forEach(({ user, temperature, country, weather, description, location_id, hours, minutes }, index) => {
     const medal = index < 3 ? medals[index] : '';
-    const countryIcon = `<img class="country-icon" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
-    const weatherIcon = `<img class="weather-icon" src="https://openweathermap.org/img/wn/${weather}.png">`;
+    const countryIcon = `<img class="country-icon" alt="${country} Flag" title="${country} Flag" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
+    const weatherIcon = `<img class="weather-icon" alt="${description}" title="${description} "src="https://openweathermap.org/img/wn/${weather}.png">`;
     
     document.getElementsByClassName('name')[index].innerHTML = `${medal} ${user} ${countryIcon} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
     document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `${weatherIcon} ${temperature}°C`;

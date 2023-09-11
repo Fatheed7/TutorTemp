@@ -26,7 +26,7 @@ async function updateTemperatures() {
       const country = userObj.Location.split(", ")[1];
       const utcTimestamp = new Date(dt * 1000);
       const localTimestamp = new Date(utcTimestamp.getTime() + timezone * 1000);
-      const hours = localTimestamp.getHours()
+      const hours = localTimestamp.getHours() - 1
       const minutes = localTimestamp.getMinutes();
 
       users[user].Temperature = temperature;

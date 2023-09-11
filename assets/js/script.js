@@ -1,10 +1,10 @@
 const users = {
-  "Holly": {"Location": "Wakefield, GB", "Temperature": "0"},
-  "Jason": {"Location": "Washington, GB", "Temperature": "0"},
-  "Joanne": {"Location": "Vancouver, CA", "Temperature": "0"},
-  "Ed": {"Location": "Highbury, GB", "Temperature": "0"},
-  "Rebecca": {"Location": "Swords, IE", "Temperature": "0"},
-  "Gemma": {"Location": "Hilversum, NL", "Temperature": "0"},
+  "Holly": {"Location": "Wakefield, GB", "Temperature": "0", "timezone": "Europe/London"},
+  "Jason": {"Location": "Washington, GB", "Temperature": "0", "timezone": "Europe/London"},
+  "Joanne": {"Location": "Vancouver, CA", "Temperature": "0", "timezone": "America/Vancouver"},
+  "Ed": {"Location": "Highbury, GB", "Temperature": "0", "timezone": "Europe/London"},
+  "Rebecca": {"Location": "Swords, IE", "Temperature": "0", "timezone": "Europe/London"},
+  "Gemma": {"Location": "Hilversum, NL", "Temperature": "0", "timezone": "Europe/Amsterdam"},
 };
 
 async function updateTemperatures() {
@@ -24,14 +24,25 @@ async function updateTemperatures() {
       const { main, weather, id, dt, timezone } = await response.json();
       const temperature = main.temp.toFixed(1);
       const country = userObj.Location.split(", ")[1];
-      const utcTimestamp = new Date(dt * 1000);
-      const localTimestamp = new Date(utcTimestamp.getTime() + timezone * 1000);
-      const hours = localTimestamp.getHours() - 1
-      const minutes = localTimestamp.getMinutes();
-
+  
       users[user].Temperature = temperature;
-
-      temperatureData.push({ user, temperature, country, weather: weather[0].icon, description: weather[0].description, location_id: id, hours, minutes });
+  
+      const secondResponse = await fetch('https://worldtimeapi.org/api/timezone/' + userObj.timezone);
+      const secondData = await secondResponse.json();
+  
+      const { datetime } = secondData;
+      const timeComponents = datetime.split('T')[1].split(':');
+      const formattedTime = `${timeComponents[0]}:${timeComponents[1]}`;
+  
+      temperatureData.push({
+        user,
+        temperature,
+        country,
+        weather: weather[0].icon,
+        description: weather[0].description,
+        location_id: id,
+        formattedTime
+      });
     } catch (error) {
       console.error(`Failed to update temperature for ${user}. Error: ${error}`);
     }
@@ -39,12 +50,12 @@ async function updateTemperatures() {
 
   temperatureData.sort((a, b) => parseFloat(b.temperature) - parseFloat(a.temperature));
 
-  temperatureData.forEach(({ user, temperature, country, weather, description, location_id, hours, minutes }, index) => {
+  temperatureData.forEach(({ user, temperature, country, weather, description, location_id, formattedTime}, index) => {
     const medal = index < 3 ? medals[index] : '';
     const countryIcon = `<img class="country-icon" alt="${country} Flag" title="${country} Flag" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
     const weatherIcon = `<img class="weather-icon" alt="${description}" title="${description} "src="https://openweathermap.org/img/wn/${weather}.png">`;
     
-    document.getElementsByClassName('name')[index].innerHTML = `${medal} ${user} ${countryIcon} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+    document.getElementsByClassName('name')[index].innerHTML = `${medal} ${user} ${countryIcon} - ${formattedTime} `;
     document.getElementsByClassName('name')[index].nextElementSibling.innerHTML = `${weatherIcon} ${temperature}°C`;
     document.getElementsByClassName('forecast')[index].innerHTML = `<small><a href="https://openweathermap.org/city/${location_id}" target="_blank">View Forecast</a></small>`;
   });

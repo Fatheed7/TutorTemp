@@ -2,7 +2,7 @@ const users = {
   "Holly": {"Location": "Wakefield, GB", "Temperature": "0", "timezone": "Europe/London"},
   "Jason": {"Location": "Washington, GB", "Temperature": "0", "timezone": "Europe/London"},
   "Joanne": {"Location": "Vancouver, CA", "Temperature": "0", "timezone": "America/Vancouver"},
-  "Ed": {"Location": "Highbury, GB", "Temperature": "0", "timezone": "Europe/London"},
+  "Santa Claus": {"Location": "North Pole, US", "Temperature": "0", "timezone": "Europe/London"},
   "Rebecca": {"Location": "Swords, IE", "Temperature": "0", "timezone": "Europe/London"},
   "Gemma": {"Location": "Hilversum, NL", "Temperature": "0", "timezone": "Europe/Amsterdam"},
 };

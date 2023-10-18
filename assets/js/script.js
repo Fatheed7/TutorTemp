@@ -52,7 +52,7 @@ async function updateTemperatures() {
 
   temperatureData.forEach(({ user, temperature, country, weather, description, location_id, formattedTime}, index) => {
     const medal = index < 3 ? medals[index] : '';
-    const countryIcon = `<img class="country-icon" alt="${country} Flag" title="${country} Flag" src="https://www.countryflagicons.com/SHINY/32/${country}.png">`;
+    const countryIcon = `<img class="country-icon" alt="${country} Flag" title="${country} Flag" src="https://raw.githubusercontent.com/lipis/flag-icons/main/flags/4x3/${country.toLowerCase()}.svg">`;
     const weatherIcon = `<img class="weather-icon" alt="${description}" title="${description} "src="https://openweathermap.org/img/wn/${weather}.png">`;
     
     document.getElementsByClassName('name')[index].innerHTML = `${medal} ${user} ${countryIcon} - ${formattedTime} `;
